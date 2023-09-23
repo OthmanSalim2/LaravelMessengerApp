@@ -16,6 +16,7 @@ return new class extends Migration
             // this field represent the person that started of conversation.
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('label')->nullable();
+            $table->enum('type', ['peer', 'group'])->default('peer');
             $table->timestamps();
         });
     }

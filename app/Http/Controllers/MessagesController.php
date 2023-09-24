@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageCreated;
 use App\Models\Conversation;
 use App\Models\Recipient;
 use App\Models\User;
@@ -103,6 +104,9 @@ class MessagesController extends Controller
             ]);
 
             DB::commit();
+
+            // possible we using event they are gave the same output but broadcast gave me some features.
+            broadcast(new MessageCreated($message));
         } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
